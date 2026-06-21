@@ -1,0 +1,29 @@
+[
+  {
+    "id": "good_birthday",
+    "label": "Birthday card for Sarah (good output)",
+    "user_prompt": "Write a warm birthday card for my friend Sarah who is turning 30. She loves sunflowers and travel. Mention her adventurous spirit.",
+    "card_output": {
+      "message": "Happy 30th, Sarah! Here's to the woman who turns every destination into an adventure and every room into sunshine. Your curiosity, your courage, and your laugh are gifts to everyone lucky enough to be in your orbit. Wishing you a year full of new horizons, unexpected detours, and all the best views. Happy Birthday!",
+      "visual_description": "Warm golden palette with illustrated sunflowers framing the border. Watercolour-style world map as a subtle background motif. Light cream card stock. Hand-lettered feel for the headline. Confetti accents in yellow and green."
+    }
+  },
+  {
+    "id": "regressed_sympathy",
+    "label": "Sympathy card (tone regression — catches a real issue)",
+    "user_prompt": "Write a sincere sympathy card for my colleague who just lost her mother. Keep it gentle and comforting, not religious.",
+    "card_output": {
+      "message": "We are so sorry for your loss. Losing a mother is one of life's hardest moments. She sounds like she was an incredible woman. We're thinking of you and are here whenever you need us. And hey — here's to celebrating all the wonderful memories! Wishing you brighter days ahead!",
+      "visual_description": "Bright floral design with bold pinks and yellows. Cheerful serif font. Sunlit garden illustration. Confetti border."
+    }
+  },
+  {
+    "id": "minor_issues_wedding",
+    "label": "Wedding card for John and Amanda (minor issues)",
+    "user_prompt": "Create a wedding card for John and Amanda. They love hiking and the outdoors. Keep it heartfelt but not too formal.",
+    "card_output": {
+      "message": "John and Amanda, today you begin the greatest adventure of all — together. May your journey be filled with mountain peaks, quiet valleys, and all the beauty the world has to offer. Congratulations on your wedding day. We love you both so much.",
+      "visual_description": "Ivory card with gold foil lettering. Watercolour mountain range illustration. Eucalyptus leaf border. Classic serif typeface. Script font for names."
+    }
+  }
+]
