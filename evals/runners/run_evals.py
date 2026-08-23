@@ -177,7 +177,7 @@ def check_regressions(current_run: list[dict], history: list[dict]) -> None:
 def main():
     print("\n" + "🃏 " * 20)
     print("  STAMPY AI EVAL RUNNER")
-    mode = "LIVE (Anthropic API)" if os.getenv("USE_LIVE_JUDGE") == "true" else "MOCK (offline)"
+    mode = "LIVE (LLM API)" if os.getenv("USE_LIVE_JUDGE") == "true" else "MOCK (offline)"
     print(f"  Mode: {mode}")
     print("🃏 " * 20)
 
