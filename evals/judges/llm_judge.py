@@ -7,7 +7,7 @@ In MOCK MODE (default, no API key needed):
   Returns deterministic mock scores so the full pipeline runs offline.
 
 In LIVE MODE (set USE_LIVE_JUDGE=true in .env + provide API key):
-  Calls the Anthropic API using the rubric dimension's judge_prompt.
+  Calls the LLM API using the rubric dimension's judge_prompt.
 
 Usage:
     from evals.judges.llm_judge import score_dimension
@@ -29,7 +29,7 @@ except ImportError:
     pass
 
 USE_LIVE_JUDGE = os.getenv("USE_LIVE_JUDGE", "false").lower() == "true"
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 
 
 # ---------------------------------------------------------------------------
@@ -86,15 +86,15 @@ def _mock_judge(dimension_name: str, fixture_key: str) -> JudgeResult:
 
 
 # ---------------------------------------------------------------------------
-# Live judge — calls Anthropic API
+# Live judge — calls LLM API
 # ---------------------------------------------------------------------------
 
 def _live_judge(dimension, user_prompt: str, card_output: str) -> JudgeResult:
-    """Score using a real Anthropic API call."""
+    """Score using a real LLM API call."""
     try:
         import anthropic
 
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        client = anthropic.Anthropic(api_key=LLM_API_KEY)
 
         user_content = (
             f"USER PROMPT:\n{user_prompt}\n\n"
@@ -140,7 +140,7 @@ def score_dimension(dimension, user_prompt: str, card_output: str, fixture_key: 
     Returns:
         JudgeResult with score 0-100 and reasoning
     """
-    if USE_LIVE_JUDGE and ANTHROPIC_API_KEY:
+    if USE_LIVE_JUDGE and LLM_API_KEY:
         return _live_judge(dimension, user_prompt, card_output)
     else:
         return _mock_judge(dimension.name, fixture_key)
