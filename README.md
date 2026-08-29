@@ -122,12 +122,3 @@ Scores are saved to `reports/scores_history.json` after every text eval run. The
 ## A note on the sympathy card fixture
 
 It's deliberately a failure case — tone opens sympathetic, drifts cheerful by the closing line. The eval catches it (`tone_consistency` scores 38/100) even though the grammar and prompt fidelity are both fine. That's the actual point of running evals instead of spot-checking output: a generic "is this text okay" check would pass it.
-
----
-
-## What I'd build next
-
-- Pipe the vision score into the overall weighted total instead of keeping it separate
-- Wrap the judge calls in a LangChain eval chain
-- Add a GitHub Action that runs the text evals on every push and comments the score on the PR
-- Swap the mock text judge for live AI calls by default once I've enough API credits during dev
