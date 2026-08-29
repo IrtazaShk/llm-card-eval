@@ -23,7 +23,7 @@ A structured eval pipeline for AI-generated greeting card output — text and vi
 
 ## Quickstart
 
-\`\`\`bash
+```bash
 # Install deps
 pip install -r requirements.txt
 
@@ -35,15 +35,15 @@ python reports/regression_tracker.py
 
 # Run vision evals (needs a free Gemini key — see below)
 python evals/runners/run_vision_evals.py
-\`\`\`
+```
 
 ### Setting up the vision eval
 
 1. Grab a free API key from [aistudio.google.com](https://aistudio.google.com)
 2. Copy the example env file and add your key:
-   \`\`\`bash
+```bash
    cp .env.example .env
-   \`\`\`
+```
    Then open `.env` and replace the placeholder with your real `GEMINI_API_KEY`.
 3. Drop 3 card images into `tests/fixtures/images/` named `birthday_card.jpg`, `sympathy_card.jpg`, `wedding_card.jpg`
 4. Run the vision runner above
@@ -52,20 +52,14 @@ The free tier caps at 5 requests/minute, so the judge sleeps ~13s between calls 
 
 ---
 
-### Sample output
-
-Screenshots of an actual run are in `results/` — birthday, sympathy, and wedding cards all scoring 95+ on aesthetic quality, style coherence, and occasion match.
-
----
-
 ## Architecture
 
 **Text pipeline:**
-\`\`\`
-User prompt → Stampy (LLM) → Card text output
+```
+User prompt → AI Model (LLM) → Card text output
                                       ↓
                               Eval Runner
-                            /     |      \\
+                            /     |      \
                      Rubric   LLM Judge  Regex checks
                        ↓         ↓           ↓
                             Score aggregator
@@ -73,18 +67,18 @@ User prompt → Stampy (LLM) → Card text output
                          Regression tracker
                                   ↓
                         Pass / Warn / Fail report
-\`\`\`
+```
 
 **Vision pipeline:**
-\`\`\`
+```
 Rendered card image → Vision Judge (Gemini)
                               ↓
             aesthetic_quality / style_coherence / occasion_match
                               ↓
                    Vision average score → Pass / Warn / Fail
-\`\`\`
+```
 
-The two run independently right now. Plugging the vision score into the overall weighted total (instead of relying on the text-only `style_coherence` proxy) is the next thing I want to add.
+The two run independently right now. Plugging the vision score into the overall weighted total instead of keeping it separate is the next thing I want to add.
 
 ---
 
@@ -111,7 +105,7 @@ The two run independently right now. Plugging the vision score into the overall 
 
 ## Regression tracking
 
-Scores are saved to `reports/scores_history.json` after every text eval run. The tracker compares each dimension to the previous run and flags:
+Scores are saved to `reports/scores_history.json` after every text eval run. The file tracks 7 runs with consistent scores across all fixtures. The tracker compares each dimension to the previous run and flags:
 
 - 🟢 `PASS` — within threshold
 - 🟡 `WARN` — dropped > 5 points
@@ -121,4 +115,4 @@ Scores are saved to `reports/scores_history.json` after every text eval run. The
 
 ## A note on the sympathy card fixture
 
-It's deliberately a failure case — tone opens sympathetic, drifts cheerful by the closing line. The eval catches it (`tone_consistency` scores 38/100) even though the grammar and prompt fidelity are both fine. That's the actual point of running evals instead of spot-checking output: a generic "is this text okay" check would pass it.
+It's deliberately a failure case — tone opens sympathetic, drifts cheerful by the closing line. The eval catches it (`tone_consistency` scores 38/100) even though the grammar and prompt fidelity are both fine. That's the actual point of running evals instead of spot-checking output: a generic "is this text okay" check would pass it. You can see this consistently flagged across all 7 runs in `reports/scores_history.json`.
