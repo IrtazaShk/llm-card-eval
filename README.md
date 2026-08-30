@@ -1,6 +1,6 @@
 # LLM Card Eval
 
-A structured eval pipeline for AI-generated greeting card output — text and visual. Built this to get hands-on with rubric design, LLM-as-judge scoring, and regression tracking for multimodal AI output, since most eval write-ups I found online only covered text.
+A structured eval pipeline for AI-generated card output — text and visual. Built this to get hands-on with rubric design, LLM-as-judge scoring, and regression tracking for multimodal AI output, since most eval write-ups I found online only covered text.
 
 > Text evals can run offline with mock responses without need of any API Key. Vision evals use the free Gemini API (real calls, real scores).
 
